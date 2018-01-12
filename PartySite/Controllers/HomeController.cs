@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PartySite.Models;
 
 namespace PartySite.Controllers
 {
@@ -38,10 +39,17 @@ namespace PartySite.Controllers
         }
 
         [HttpPost]
-        public ActionResult RsvpForm(Models.GuestResponse guestResponse)
+        public ActionResult RsvpForm(GuestResponse guestResponse)
         {
             if (ModelState.IsValid)
+            {
+                using (ResponseContext db = new ResponseContext())
+                {
+                    db.Responses.Add(guestResponse);
+                    db.SaveChanges();
+                }
                 return View("Thanks", guestResponse);
+            }
             else
                 return View();
         }

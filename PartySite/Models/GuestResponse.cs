@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 
 namespace PartySite.Models
 {
     public class GuestResponse
     {
+        [Key]
+        public int ResponseId { get; set; }
+
         [Required(ErrorMessage = "Please enter your name")]
         public string Name { get; set; }
 
@@ -21,4 +25,16 @@ namespace PartySite.Models
         [Required(ErrorMessage = "Please specify whether you`ll attend")]
         public bool? WillAttend { get; set; }
     }
+
+    public class ResponseContext : DbContext
+    {
+        public ResponseContext()
+            :base("DbConnection") //DbConnection - name of connection string
+        {
+
+        }
+
+        public DbSet<GuestResponse> Responses { get; set; }
+    }
+
 }
