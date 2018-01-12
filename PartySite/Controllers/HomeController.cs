@@ -32,6 +32,22 @@ namespace PartySite.Controllers
             return View();
         }
 
+        public ActionResult GuestList()
+        {
+            List<GuestResponse> lst = new List<GuestResponse>();
+
+            using (ResponseContext db = new ResponseContext())
+            {
+                foreach (var item in db.Responses)
+                {
+                    if(item.WillAttend == true)
+                        lst.Add(item);
+                }
+            }
+
+            return View("GuestList", lst);
+        }
+
         [HttpGet]
         public ActionResult RsvpForm()
         {
