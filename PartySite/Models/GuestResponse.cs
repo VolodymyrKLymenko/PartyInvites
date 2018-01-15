@@ -29,7 +29,7 @@ namespace PartySite.Models
     public class ResponseContext : DbContext
     {
         public ResponseContext()
-            :base("DbConnection") //DbConnection - name of connection string
+            : base("DbConnection") //DbConnection - name of connection string
         {
 
         }
